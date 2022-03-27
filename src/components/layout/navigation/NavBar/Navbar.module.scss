@@ -1,0 +1,98 @@
+nav {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  & > .topBackground {
+    width: 100%;
+    height: 1.5rem;
+    grid-column: 1/-1;
+    background: var(--color-primary);
+  }
+  & > section {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    width: 100%;
+
+    @media only screen and (max-width: 50em) {
+      height: auto;
+    }
+
+    & > div {
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      width: 100vw;
+      & > img {
+        width: 20rem;
+      }
+      .menu-icon {
+        font-size: 5rem;
+        display: none;
+        cursor: pointer;
+        justify-self: flex-end;
+
+        &:hover {
+          color: var(--color-primary);
+        }
+
+        @media only screen and (max-width: 50em) {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .menu {
+    justify-self: flex-end;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    overflow: hidden;
+
+    @media only screen and (max-width: 50em) {
+      display: grid;
+      grid-column: 1/-1;
+      grid-template-rows: repeat(4, max-content);
+      justify-self: flex-start;
+      width: 100%;
+      height: 0;
+      transition: 0.2s linear height;
+    }
+
+    & > li {
+      font-size: 1.6rem;
+      cursor: pointer;
+      font-weight: bold;
+
+      padding: 0 2rem;
+      font-family: var(--font-header);
+      color: var(--color-grey-1);
+
+      &:not(:last-child) {
+        border-right: var(--border-grey);
+        @media only screen and (max-width: 50em) {
+          border-right: none;
+          border-bottom: var(--border-grey);
+        }
+      }
+
+      &:hover {
+        color: var(--color-secondary);
+      }
+      @media only screen and (max-width: 50em) {
+        width: 85vw;
+        padding: 1rem 0;
+        font-weight: 400;
+      }
+    }
+  }
+
+  & > .menu-active {
+    @media only screen and (max-width: 50em) {
+      height: 17rem;
+    }
+    @extend .menu;
+  }
+}

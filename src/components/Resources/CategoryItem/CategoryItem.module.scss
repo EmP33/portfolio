@@ -1,0 +1,24 @@
+.categories-section__category {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: max-content 1fr;
+  padding: 1rem;
+  column-gap: 2rem;
+ 
+  
+
+  & > svg {
+    font-size: 4rem;
+  }
+  & > h4 {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+    color: var(--color-primary);
+  }
+  & > p {
+    font-size: 1.6rem;
+    grid-column: 2/-1;
+    color: #333;
+  }
+}

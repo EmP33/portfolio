@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+:root {
+  --color-primary: #583d72;
+  --color-secondary: #9f5f80;
+  --color-tertiary: #ff8474;
+  --color-quaternary: #ffc996;
+
+  --color-grey-1: #333;
+  --color-grey-2: #696969;
+  --color-grey-3: #808080;
+  --color-grey-4: #a9a9a9;
+  --color-grey-5: #d3d3d3;
+
+  --border-grey: 1px solid #a9a9a9;
+
+  --font-header: "Roboto", sans-serif;
+}
+
+@mixin header {
+  color: blue;
+  font-size: 10rem;
+}

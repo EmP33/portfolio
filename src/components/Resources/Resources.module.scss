@@ -1,0 +1,90 @@
+@import "../../variables";
+
+.header {
+  width: 100%;
+  padding: 5rem 1rem 10rem;
+  background: linear-gradient(
+    to bottom right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  row-gap: 4rem;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 80%);
+
+  &-categories {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    & > button {
+      padding: 1rem 3rem;
+      margin: 0 1rem;
+      color: #fff;
+      background: rgba(159, 95, 128, 0.5);
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      font-size: 2rem;
+      font-family: var(--font-header);
+      cursor: pointer;
+
+      &:hover,
+      &:active {
+        background: rgba(159, 95, 128, 1);
+      }
+    }
+  }
+
+  &-search {
+    width: 50%;
+    outline: none;
+    padding: 1.5rem 2rem;
+    font-size: 1.6rem;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.25);
+
+    &::placeholder {
+      color: #fff;
+    }
+  }
+
+  &-title {
+    font-size: 3rem;
+    font-family: var(--font-header);
+    font-weight: 400;
+    color: #fff;
+  }
+}
+
+.categories {
+  width: 100vw;
+  margin: 5rem 0;
+
+  &-section {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5rem;
+    row-gap: 4rem;
+
+    &__header {
+      text-align: center;
+      color: var(--color-grey-1);
+      grid-column: 1/-1;
+      margin-bottom: 2rem;
+      & > svg {
+        font-size: 3rem;
+      }
+      & > h3 {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
