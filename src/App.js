@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,27 +6,46 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import ResourcesPage from "./pages/ResourcesPage/ResourcesPage";
-import AuthPage from "./pages/AuthPage/AuthPage";
-import Dashboard from "./pages/DashboardPage/DashboardPage";
+import ResourcesPage from "./pages/ResourcesPage";
+
+import LoadingSpinner from "./components/UI/LoadingSpinner";
+
+import CategoryManagement from "./components/Dashbaord/Sections/CategoryManagement";
 
 import { useSelector } from "react-redux";
+
+const AuthPage = React.lazy(() => import("./pages/AuthPage"));
+const Dashboard = React.lazy(() => import("./pages/Dashboard/DashboardPage"));
+const CategoryDetailsPage = React.lazy(() =>
+  import("./pages/Dashboard/CategoryDetailsPage")
+);
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to="/resources" />} />
-        <Route path="/resources" element={<ResourcesPage />} />
-        <Route path="/account/login" element={<AuthPage />} />
-        {isLoggedIn ? (
-          <Route path="/dashboard" element={<Dashboard />} />
-        ) : (
-          <Route path="/dashboard" element={<Navigate to="/resources" />} />
-        )}
-      </Routes>
-    </Router>
+    <Suspense
+      fallback={
+        <div className="centered">
+          <LoadingSpinner />
+        </div>
+      }
+    >
+      <Router>
+        <Routes>
+          <Route path="/" element={<Navigate to="/resources" />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/account/login" element={<AuthPage />} />
+          {isLoggedIn ? (
+            <Route path="/dashboard/*" element={<Dashboard />}>
+              <Route path="categories" element={<CategoryManagement />} />
+              <Route path=":categoryID" element={<CategoryDetailsPage />} />
+            </Route>
+          ) : (
+            <Route path="/dashboard" element={<Navigate to="/resources" />} />
+          )}
+        </Routes>
+      </Router>
+    </Suspense>
   );
 };
 
