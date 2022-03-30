@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import Dashboard from "../../components/Dashbaord/Dashboard";
 import LoadingSpinner from "../../components/UI/LoadingSpinner";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useHttp from "../../hooks/use-http";
 import { getAllCategories } from "../../lib/api";
 import { dashboardActions } from "../../store/dashboard-slice";
@@ -34,13 +34,6 @@ const DashboardPage = () => {
 
   if (error) {
     return <p className="centered">{error}</p>;
-  }
-
-  if (
-    status === "completed" &&
-    (!loadedCategories || loadedCategories.length === 0)
-  ) {
-    return "";
   }
 
   return <Dashboard />;

@@ -4,24 +4,23 @@ import CSSModules from "react-css-modules";
 
 import AddCategory from "../../Modals/AddCategory/AddCategory";
 
-import { useSelector, useDispatch } from "react-redux";
-import { dashboardActions } from "../../../store/dashboard-slice";
+import { useSelector } from "react-redux";
+
 import { Link } from "react-router-dom";
 
-import useHttp from "../../../hooks/use-http";
-import { addCategory } from "../../../lib/api";
-
-const CategoryManagement = () => {
-  const dispatch = useDispatch();
+const CategoryManagement = ({ onAddCategory }) => {
   const categories = useSelector((state) => state.dashboard.categories);
-  const { sendRequest } = useHttp(addCategory);
+
   const [openModal, setOpenModal] = useState(false);
 
   const addCategoryHandler = (categoryData) => {
-    sendRequest(categoryData);
-    dispatch(dashboardActions.addCategory(categoryData));
+    onAddCategory(categoryData);
     setOpenModal((prevState) => !prevState);
   };
+
+  if (!categories) {
+    return "";
+  }
 
   return (
     <div styleName="category-manage">
@@ -47,4 +46,4 @@ const CategoryManagement = () => {
   );
 };
 
-export default CSSModules(CategoryManagement, styles);
+export default React.memo(CSSModules(CategoryManagement, styles));

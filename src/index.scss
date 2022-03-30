@@ -24,3 +24,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+.spinning {
+  animation: spin 0.5s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

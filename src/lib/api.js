@@ -40,3 +40,27 @@ export const getSingleCategory = async (categoryID) => {
     ...data,
   };
 };
+
+export const updateCategory = async (category) => {
+  await fetch(`${FIREBASE_DOMAIN}/categories/${category.id}.json`, {
+    method: "PUT",
+    body: JSON.stringify({
+      title: category.title,
+      image: category.image,
+      description: category.description,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return null;
+};
+
+export const deleteCategory = async (categoryID) => {
+  await fetch(`${FIREBASE_DOMAIN}/categories/${categoryID}.json`, {
+    method: "DELETE",
+  });
+
+  return null;
+};
