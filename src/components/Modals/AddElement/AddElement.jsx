@@ -13,18 +13,21 @@ const AddElement = ({ category, openModal, setOpenModal }) => {
   const titleRef = useRef();
   const imageRef = useRef();
   const descriptionRef = useRef();
+  const linkRef = useRef();
 
   const addElementHandler = async (e) => {
     e.preventDefault();
     const enteredTitle = titleRef.current.value;
     const enteredImage = imageRef.current.value;
     const enteredDescription = descriptionRef.current.value;
+    const enteredLink = linkRef.current.value;
 
     if (category.elements) {
       category.elements.push({
         title: enteredTitle,
         image: enteredImage,
         description: enteredDescription,
+        link: enteredLink,
         id: Math.floor(Math.random() * 100000),
       });
       sendRequest(category);
@@ -34,6 +37,7 @@ const AddElement = ({ category, openModal, setOpenModal }) => {
           title: enteredTitle,
           image: enteredImage,
           description: enteredDescription,
+          link: enteredLink,
           id: Math.floor(Math.random() * 100000),
         },
       ];
@@ -69,7 +73,8 @@ const AddElement = ({ category, openModal, setOpenModal }) => {
             placeholder="Description"
             ref={descriptionRef}
             required
-          />
+          />{" "}
+          <input type="text" placeholder="Link" ref={linkRef} required />
           <button type="submit">
             {status === "pending" ? (
               <RiLoader3Fill className="spinning" />

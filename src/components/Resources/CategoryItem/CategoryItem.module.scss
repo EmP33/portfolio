@@ -4,17 +4,24 @@
   grid-template-rows: max-content 1fr;
   padding: 1rem;
   column-gap: 2rem;
- 
-  
 
-  & > svg {
-    font-size: 4rem;
+  & > img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
   }
-  & > h4 {
+  & > a,
+  & > a:visited {
     font-size: 3rem;
+    text-decoration: none;
     margin: 0;
+    cursor: pointer;
     padding: 0;
     color: var(--color-primary);
+
+    &:hover {
+      filter: brightness(150%);
+    }
   }
   & > p {
     font-size: 1.6rem;

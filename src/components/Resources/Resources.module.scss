@@ -65,26 +65,4 @@
 .categories {
   width: 100vw;
   margin: 5rem 0;
-
-  &-section {
-    width: 80%;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 5rem;
-    row-gap: 4rem;
-
-    &__header {
-      text-align: center;
-      color: var(--color-grey-1);
-      grid-column: 1/-1;
-      margin-bottom: 2rem;
-      & > svg {
-        font-size: 3rem;
-      }
-      & > h3 {
-        font-size: 2.5rem;
-      }
-    }
-  }
 }

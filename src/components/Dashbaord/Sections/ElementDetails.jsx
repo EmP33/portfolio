@@ -17,6 +17,7 @@ const ElementDetails = ({ element, category }) => {
   const titleRef = useRef();
   const imageRef = useRef();
   const descriptionRef = useRef();
+  const linkRef = useRef();
 
   const editElementHandler = (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const ElementDetails = ({ element, category }) => {
     const enteredTitle = titleRef.current.value;
     const enteredImage = imageRef.current.value;
     const enteredDescription = descriptionRef.current.value;
+    const enteredLink = linkRef.current.value;
     category.elements[
       category.elements.findIndex((elem) => elem.id === element.id)
     ] = {
@@ -31,6 +33,7 @@ const ElementDetails = ({ element, category }) => {
       id: element.id,
       image: enteredImage,
       title: enteredTitle,
+      link: enteredLink,
     };
 
     sendRequest(category);
@@ -58,6 +61,12 @@ const ElementDetails = ({ element, category }) => {
             valueRef={descriptionRef}
             label="Element Description"
           />
+          <FormInput
+            id="link"
+            defaultValue={element.link}
+            valueRef={linkRef}
+            label="Element Link"
+          />
 
           <div styleName="form-action">
             <button type="submit">
@@ -84,7 +93,12 @@ const ElementDetails = ({ element, category }) => {
       </div>
       <div styleName="details-main__preview">
         <h3>Preview</h3>
-        <CategoryItem title={element.title} description={element.description} />
+        <CategoryItem
+          title={element.title}
+          logo={element.image}
+          description={element.description}
+          link={element.link}
+        />
       </div>
     </section>
   );

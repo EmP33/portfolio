@@ -22,7 +22,7 @@ const DeleteCategory = ({ openModal, setOpenModal, category }) => {
 
   useEffect(() => {
     if (status === "completed") {
-      navigate(`/dashboard/categories${category.id}`, { replace: true });
+      navigate(`/dashboard/${category.id}`, { replace: true });
     }
   }, [status, navigate]);
 

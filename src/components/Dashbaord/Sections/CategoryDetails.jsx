@@ -30,6 +30,7 @@ const CategoryDetails = ({ category }) => {
       title: enteredTitle,
       image: enteredImage,
       description: enteredDescription,
+      elements: category.elements,
       id: category.id,
     });
   };

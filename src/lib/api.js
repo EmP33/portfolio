@@ -10,6 +10,7 @@ export const getAllCategories = async () => {
       title: data[key].title,
       image: data[key].image,
       description: data[key].description,
+      elements: data[key].elements,
     });
   }
   return loadedCategories;
