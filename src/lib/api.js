@@ -48,6 +48,7 @@ export const updateCategory = async (category) => {
       title: category.title,
       image: category.image,
       description: category.description,
+      elements: category.elements || [],
     }),
     headers: {
       "Content-Type": "application/json",
@@ -63,4 +64,31 @@ export const deleteCategory = async (categoryID) => {
   });
 
   return null;
+};
+
+export const addElementToCategory = async (categoryData) => {
+  await fetch(`${FIREBASE_DOMAIN}/categories/${categoryData.id}.json`, {
+    method: "PUT",
+    body: JSON.stringify(categoryData),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return null;
+};
+
+export const updateElement = async () => {
+  // await fetch(`${FIREBASE_DOMAIN}/categories/${category.id}.json`, {
+  //   method: "PUT",
+  //   body: JSON.stringify({
+  //     title: category.title,
+  //     image: category.image,
+  //     description: category.description,
+  //   }),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // });
+  // return null;
 };

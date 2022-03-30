@@ -55,4 +55,4 @@ const AddCategory = ({ openModal, setOpenModal, onAddCategory }) => {
   );
 };
 
-export default AddCategory;
+export default React.memo(AddCategory);

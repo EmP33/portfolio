@@ -9,6 +9,7 @@ import {
 import ResourcesPage from "./pages/ResourcesPage";
 
 import LoadingSpinner from "./components/UI/LoadingSpinner";
+import ElementDetailsPage from "./pages/Dashboard/ElementDetailsPage";
 
 import { useSelector } from "react-redux";
 
@@ -39,7 +40,11 @@ const App = () => {
           {isLoggedIn ? (
             <Route path="/dashboard/*" element={<Dashboard />}>
               <Route path="categories" element={<CategoryManagementPage />} />
-              <Route path=":categoryID" element={<CategoryDetailsPage />} />
+              <Route path=":categoryID/*" element={<CategoryDetailsPage />} />
+              <Route
+                path=":categoryID/element/:elementID"
+                element={<ElementDetailsPage />}
+              />
             </Route>
           ) : (
             <Route path="/dashboard" element={<Navigate to="/resources" />} />

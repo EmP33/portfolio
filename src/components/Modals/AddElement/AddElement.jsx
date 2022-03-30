@@ -1,22 +1,86 @@
-import React from "react";
+import React, { useRef } from "react";
 import classes from "./AddElement.module.scss";
 
 import Modal from "@mui/material/Modal";
 
-const AddElement = ({openAddModal,setOpenAddModal}) => {
+import { RiLoader3Fill } from "react-icons/ri";
+
+import useHttp from "../../../hooks/use-http";
+import { addElementToCategory } from "../../../lib/api";
+
+const AddElement = ({ category, openModal, setOpenModal }) => {
+  const { sendRequest, status } = useHttp(addElementToCategory);
+  const titleRef = useRef();
+  const imageRef = useRef();
+  const descriptionRef = useRef();
+
+  const addElementHandler = async (e) => {
+    e.preventDefault();
+    const enteredTitle = titleRef.current.value;
+    const enteredImage = imageRef.current.value;
+    const enteredDescription = descriptionRef.current.value;
+
+    if (category.elements) {
+      category.elements.push({
+        title: enteredTitle,
+        image: enteredImage,
+        description: enteredDescription,
+        id: Math.floor(Math.random() * 100000),
+      });
+      sendRequest(category);
+    } else {
+      category.elements = [
+        {
+          title: enteredTitle,
+          image: enteredImage,
+          description: enteredDescription,
+          id: Math.floor(Math.random() * 100000),
+        },
+      ];
+      sendRequest(category);
+    }
+
+    setOpenModal(false);
+  };
 
   return (
     <Modal
-      open={openAddModal}
-      onClose={() => setOpenAddModal(false)}
+      open={openModal}
+      onClose={() => setOpenModal(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <div className={classes["category-modal"]}>
-        <h4>Are you sure you want to delete category?</h4>
+        <form onSubmit={addElementHandler}>
+          <input
+            type="text"
+            placeholder="Element Title"
+            ref={titleRef}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Element Image"
+            ref={imageRef}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Description"
+            ref={descriptionRef}
+            required
+          />
+          <button type="submit">
+            {status === "pending" ? (
+              <RiLoader3Fill className="spinning" />
+            ) : (
+              "Add Element"
+            )}
+          </button>
+        </form>
       </div>
     </Modal>
   );
 };
 
-export default AddElement;
+export default React.memo(AddElement);

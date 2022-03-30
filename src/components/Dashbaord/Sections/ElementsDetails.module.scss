@@ -1,7 +1,7 @@
 .details-main {
   width: 100%;
 
-  &__category {
+  &__element {
     width: 100%;
 
     & > form {
@@ -50,50 +50,17 @@
       }
     }
   }
-  &__elements {
+  &__preview {
     margin-top: 5rem;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-    & > h2 {
+    & > h3 {
+      color: var(--color-grey-1);
       font-size: 3rem;
-      color: var(--color-secondary);
-    }
-
-    & > button {
-      margin-top: 1rem;
-      padding: 1rem 3rem;
-      font-size: 1.4rem;
-      color: #fff;
-      background: var(--color-primary);
-      border: none;
-      cursor: pointer;
-      outline: none;
-
-      &:hover {
-        filter: brightness(110%);
-      }
-    }
-
-    & > div {
-      padding: 2rem;
-
-      & > h4 {
-        font-size: 2.5rem;
-        text-align: center;
-        color: var(--color-grey-1);
-      }
-      & > a {
-        font-size: 2rem;
-        text-decoration: none;
-        color: var(--color-grey-1);
-        border-bottom: 1px solid var(--color-primary);
-        display: block;
-        padding: 1rem;
-        &:hover {
-          background-color: var(--color-primary);
-          color: #fff;
-        }
-      }
+      margin-bottom: 1rem;
     }
   }
 }

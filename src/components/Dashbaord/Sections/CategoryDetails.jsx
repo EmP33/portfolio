@@ -8,7 +8,8 @@ import { updateCategory } from "../../../lib/api";
 import { RiLoader3Fill } from "react-icons/ri";
 
 import DeleteCategory from "../../Modals/DeleteCategory/DeleteCategory";
-import AddElement from "../../Modals/AddCategory/AddCategory";
+import AddElement from "../../Modals/AddElement/AddElement";
+import FormInput from "../../UI/FormInput/FormInput";
 
 const CategoryDetails = ({ category }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -37,27 +38,24 @@ const CategoryDetails = ({ category }) => {
     <section styleName="details-main">
       <div styleName="details-main__category">
         <form onSubmit={editCategoryHandler}>
-          <div>
-            <label htmlFor="title">Category Title </label>
-            <input
-              type="text"
-              defaultValue={category.title}
-              id="title"
-              ref={titleRef}
-            />
-          </div>
-          <div>
-            <label htmlFor="title">Category Image </label>
-            <input type="text" defaultValue={category.image} ref={imageRef} />
-          </div>
-          <div>
-            <label htmlFor="title">Category Description </label>
-            <input
-              type="text"
-              defaultValue={category.description}
-              ref={descriptionRef}
-            />
-          </div>
+          <FormInput
+            id="title"
+            defaultValue={category.title}
+            valueRef={titleRef}
+            label="Category Title"
+          />
+          <FormInput
+            id="image"
+            defaultValue={category.image}
+            valueRef={imageRef}
+            label="Category Image"
+          />
+          <FormInput
+            id="description"
+            defaultValue={category.description}
+            valueRef={descriptionRef}
+            label="Category Description"
+          />
           <div styleName="form-action">
             <button type="submit">
               {status === "pending" ? (
@@ -74,21 +72,31 @@ const CategoryDetails = ({ category }) => {
               )}
             </button>
           </div>
-          <DeleteCategory
-            categoryID={category.id}
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-          />
+          <DeleteCategory openModal={openModal} setOpenModal={setOpenModal} />
         </form>
       </div>
       <div styleName="details-main__elements">
         <h2>Category Elements</h2>
-        <button>Add element</button>
+        <button onClick={() => setOpenAddModal(true)}>Add element</button>
         <div>
-          <Link to={`/dashboard/${category.id}/id`}>IcoMoon</Link>
-          <Link to={`/dashboard/${category.id}/id`}>IcoMoon</Link>
-          <Link to={`/dashboard/${category.id}/id`}>IcoMoon</Link>
+          {!category.elements && (
+            <h4>Nothing's there! Try to add your first element!</h4>
+          )}
+          {category.elements &&
+            category.elements.map((element) => (
+              <Link
+                key={element.id}
+                to={`/dashboard/${category.id}/element/${element.id}`}
+              >
+                {element.title}
+              </Link>
+            ))}
         </div>
+        <AddElement
+          category={category}
+          openModal={openAddModal}
+          setOpenModal={setOpenAddModal}
+        />
       </div>
     </section>
   );
