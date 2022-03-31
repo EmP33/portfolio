@@ -16,6 +16,7 @@ const CategoriesSection = ({ category }) => {
           alt="logo"
         />
         <h3>{category.title}</h3>
+        <p>{category.description}</p>
       </div>
       {!category.elements && <h4>Nothing's there</h4>}
       {category.elements &&

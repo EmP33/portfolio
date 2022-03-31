@@ -18,17 +18,18 @@
   &-categories {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
 
-    & > button {
-      padding: 1rem 3rem;
-      margin: 0 1rem;
+    & > .swiper-slide > button {
+      width: 15rem;
+      margin: 1rem;
+      padding: 0.5rem;
       color: #fff;
       background: rgba(159, 95, 128, 0.5);
       border: none;
       outline: none;
       border-radius: 5px;
-      font-size: 2rem;
+      font-size: 1.4rem;
       font-family: var(--font-header);
       cursor: pointer;
 
