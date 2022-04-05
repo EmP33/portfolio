@@ -13,6 +13,7 @@ import { updateCategory } from "../../../lib/api";
 
 const ElementDetails = ({ element, category }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const { sendRequest, status } = useHttp(updateCategory);
   const titleRef = useRef();
   const imageRef = useRef();
@@ -26,6 +27,7 @@ const ElementDetails = ({ element, category }) => {
     const enteredImage = imageRef.current.value;
     const enteredDescription = descriptionRef.current.value;
     const enteredLink = linkRef.current.value;
+
     category.elements[
       category.elements.findIndex((elem) => elem.id === element.id)
     ] = {
@@ -34,9 +36,14 @@ const ElementDetails = ({ element, category }) => {
       image: enteredImage,
       title: enteredTitle,
       link: enteredLink,
+      isFavorite: isFavorite,
     };
 
     sendRequest(category);
+  };
+
+  const changeFavoriteHandler = (e) => {
+    setIsFavorite(e.target.checked);
   };
 
   return (
@@ -67,6 +74,18 @@ const ElementDetails = ({ element, category }) => {
             valueRef={linkRef}
             label="Element Link"
           />
+          <div styleName="favorite-wrapper">
+            <label htmlFor="favorite">
+              <input
+                type="checkbox"
+                id="favorite"
+                defaultChecked={element.isFavorite}
+                // checked={isFavorite}
+                onChange={changeFavoriteHandler}
+              />
+              Add to Favorite
+            </label>
+          </div>
 
           <div styleName="form-action">
             <button type="submit">

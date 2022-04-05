@@ -29,6 +29,7 @@ const AddElement = ({ category, openModal, setOpenModal }) => {
         description: enteredDescription,
         link: enteredLink,
         id: Math.floor(Math.random() * 100000),
+        isFavorite: false,
       });
       sendRequest(category);
     } else {

@@ -25,6 +25,7 @@ const CategoriesSection = ({ category }) => {
             key={item.id}
             logo={item.image}
             title={item.title}
+            isFavorite={item.isFavorite}
             description={item.description}
             link={item.link}
           />

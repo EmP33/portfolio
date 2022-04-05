@@ -1,4 +1,4 @@
-.categories-section__category {
+%category-placeholder {
   display: grid;
   grid-template-columns: min-content 1fr;
   grid-template-rows: max-content 1fr;
@@ -27,5 +27,28 @@
     font-size: 1.6rem;
     grid-column: 2/-1;
     color: #333;
+  }
+}
+
+.categories-section__category {
+  @extend %category-placeholder;
+}
+
+.categories-section__best-category {
+  border: 5px solid var(--color-secondary);
+  border-radius: 1rem;
+  position: relative;
+  @extend %category-placeholder;
+
+  &::after {
+    content: "My prefer";
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    background: var(--color-secondary);
+    color: #fff;
+    padding: 0.5rem 2rem;
   }
 }
