@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Account
+
+To login to admin you have to go to /account/login and type: purwinmarek16@gmail.com Z2mb4u7h
+Next you are allow to go to /dashboard
+
 ## Available Scripts
 
 In the project directory, you can run:
