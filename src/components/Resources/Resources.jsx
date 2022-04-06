@@ -28,7 +28,7 @@ const Resources = ({ categories }) => {
           >
             {categories.map((category) => (
               <SwiperSlide key={category.id}>
-                <button>{category.title}</button>
+                <a href={`#${category.id}`}>{category.title}</a>
               </SwiperSlide>
             ))}
           </Swiper>

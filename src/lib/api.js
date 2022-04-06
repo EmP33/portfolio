@@ -11,6 +11,7 @@ export const getAllCategories = async () => {
       image: data[key].image,
       description: data[key].description,
       elements: data[key].elements,
+      isHidden: data[key].isHidden,
     });
   }
   return loadedCategories;
@@ -50,6 +51,7 @@ export const updateCategory = async (category) => {
       image: category.image,
       description: category.description,
       elements: category.elements || [],
+      isHidden: category.isHidden,
     }),
     headers: {
       "Content-Type": "application/json",
@@ -77,19 +79,4 @@ export const addElementToCategory = async (categoryData) => {
   });
 
   return null;
-};
-
-export const updateElement = async () => {
-  // await fetch(`${FIREBASE_DOMAIN}/categories/${category.id}.json`, {
-  //   method: "PUT",
-  //   body: JSON.stringify({
-  //     title: category.title,
-  //     image: category.image,
-  //     description: category.description,
-  //   }),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // });
-  // return null;
 };

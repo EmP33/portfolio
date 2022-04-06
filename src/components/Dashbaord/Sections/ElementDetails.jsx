@@ -5,6 +5,7 @@ import styles from "./ElementsDetails.module.scss";
 import FormInput from "../../UI/FormInput/FormInput";
 import DeleteElement from "../../Modals/DeleteElement/DeleteElement";
 import CategoryItem from "../../Resources/CategoryItem/CategoryItem";
+import CheckboxField from "../../UI/CheckboxField/CheckboxField";
 
 import { RiLoader3Fill } from "react-icons/ri";
 
@@ -14,6 +15,7 @@ import { updateCategory } from "../../../lib/api";
 const ElementDetails = ({ element, category }) => {
   const [openModal, setOpenModal] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { sendRequest, status } = useHttp(updateCategory);
   const titleRef = useRef();
   const imageRef = useRef();
@@ -37,6 +39,7 @@ const ElementDetails = ({ element, category }) => {
       title: enteredTitle,
       link: enteredLink,
       isFavorite: isFavorite,
+      isHidden: hidden,
     };
 
     sendRequest(category);
@@ -44,6 +47,9 @@ const ElementDetails = ({ element, category }) => {
 
   const changeFavoriteHandler = (e) => {
     setIsFavorite(e.target.checked);
+  };
+  const changePrivacyHandler = (e) => {
+    setHidden(e.target.checked);
   };
 
   return (
@@ -74,19 +80,18 @@ const ElementDetails = ({ element, category }) => {
             valueRef={linkRef}
             label="Element Link"
           />
-          <div styleName="favorite-wrapper">
-            <label htmlFor="favorite">
-              <input
-                type="checkbox"
-                id="favorite"
-                defaultChecked={element.isFavorite}
-                // checked={isFavorite}
-                onChange={changeFavoriteHandler}
-              />
-              Add to Favorite
-            </label>
-          </div>
-
+          <CheckboxField
+            id="favorite"
+            value={element.isFavorite}
+            fn={changeFavoriteHandler}
+            label="Add to Favorite"
+          />
+          <CheckboxField
+            id="hidden"
+            value={element.isHidden}
+            fn={changePrivacyHandler}
+            label="Private"
+          />
           <div styleName="form-action">
             <button type="submit">
               {status === "pending" ? (
@@ -117,6 +122,7 @@ const ElementDetails = ({ element, category }) => {
           logo={element.image}
           description={element.description}
           link={element.link}
+          isFavorite={element.isFavorite}
         />
       </div>
     </section>

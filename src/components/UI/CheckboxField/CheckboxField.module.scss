@@ -1,0 +1,14 @@
+.checkbox-wrapper {
+    display: flex;
+    width: 20%;
+    align-items: center;
+
+    & > label {
+      font-size: 1.5rem;
+      color: var(--color-grey-1);
+
+      & > input {
+        margin-right: 0.5rem;
+      }
+    }
+  }

@@ -60,7 +60,7 @@ body {
   -webkit-align-items: center;
   align-items: center;
 
-  button {
+  a {
     width: 15rem;
     padding: 0.8rem 2rem;
     color: #fff;
@@ -71,6 +71,7 @@ body {
     font-size: 1.6rem;
     font-family: var(--font-header);
     cursor: pointer;
+    text-decoration: none;
 
     &:hover,
     &:active {

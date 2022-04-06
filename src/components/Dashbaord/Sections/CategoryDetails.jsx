@@ -10,10 +10,12 @@ import { RiLoader3Fill } from "react-icons/ri";
 import DeleteCategory from "../../Modals/DeleteCategory/DeleteCategory";
 import AddElement from "../../Modals/AddElement/AddElement";
 import FormInput from "../../UI/FormInput/FormInput";
+import CheckboxField from "../../UI/CheckboxField/CheckboxField";
 
 const CategoryDetails = ({ category }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { sendRequest, status } = useHttp(updateCategory);
 
   const titleRef = useRef();
@@ -32,7 +34,12 @@ const CategoryDetails = ({ category }) => {
       description: enteredDescription,
       elements: category.elements,
       id: category.id,
+      isHidden: hidden,
     });
+  };
+
+  const changeHiddenHandler = (e) => {
+    setHidden(e.target.checked);
   };
 
   return (
@@ -56,6 +63,12 @@ const CategoryDetails = ({ category }) => {
             defaultValue={category.description}
             valueRef={descriptionRef}
             label="Category Description"
+          />
+          <CheckboxField
+            label="Private"
+            fn={changeHiddenHandler}
+            value={category.isHidden}
+            id="hidden"
           />
           <div styleName="form-action">
             <button type="submit">
