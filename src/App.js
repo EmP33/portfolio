@@ -24,6 +24,7 @@ const CategoryManagementPage = React.lazy(() =>
 
 const App = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   return (
     <Suspense
       fallback={

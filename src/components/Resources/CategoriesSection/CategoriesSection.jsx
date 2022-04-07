@@ -4,9 +4,12 @@ import CSSModules from "react-css-modules";
 
 import CategoryItem from "../CategoryItem/CategoryItem";
 
+import { useSelector } from "react-redux";
+
 const CategoriesSection = ({ category }) => {
-  console.log(category);
-  if (category.isHidden) {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  if (category.isHidden && !isLoggedIn) {
     return "";
   } else {
     return (
@@ -22,19 +25,21 @@ const CategoriesSection = ({ category }) => {
           <h3>{category.title}</h3>
           <p>{category.description}</p>
         </div>
-        {!category.elements && <h4>Nothing's there</h4>}
-        {category.elements &&
-          category.elements.map((item) => (
-            <CategoryItem
-              key={item.id}
-              logo={item.image}
-              title={item.title}
-              isFavorite={item.isFavorite}
-              isHidden={item.isHidden}
-              description={item.description}
-              link={item.link}
-            />
-          ))}
+        <div styleName="categories-section__content">
+          {!category.elements && <h4>Nothing's there</h4>}
+          {category.elements &&
+            category.elements.map((item) => (
+              <CategoryItem
+                key={item.id}
+                logo={item.image}
+                title={item.title}
+                isFavorite={item.isFavorite}
+                isHidden={item.isHidden}
+                description={item.description}
+                link={item.link}
+              />
+            ))}
+        </div>
       </div>
     );
   }

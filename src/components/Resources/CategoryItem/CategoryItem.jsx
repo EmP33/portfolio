@@ -1,5 +1,6 @@
 import React from "react";
 import CSSModules from "react-css-modules";
+import { useSelector } from "react-redux";
 import styles from "./CategoryItem.module.scss";
 
 const CategoryItem = ({
@@ -10,7 +11,9 @@ const CategoryItem = ({
   isFavorite,
   isHidden,
 }) => {
-  if (isHidden) {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  if (isHidden && !isLoggedIn) {
     return "";
   } else {
     return (

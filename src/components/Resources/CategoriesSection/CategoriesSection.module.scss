@@ -1,10 +1,6 @@
 .categories-section {
   width: 80%;
   margin: 0 auto 3rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 5rem;
-  row-gap: 4rem;
 
   &__header {
     text-align: center;
@@ -27,8 +23,21 @@
     }
   }
 
-  & > h4 {
-    font-size: 2rem;
-    color: var(--color-grey-1);
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5rem;
+    row-gap: 4rem;
+
+    @media only screen and (max-width: 62.5em) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media only screen and (max-width: 50em) {
+      grid-template-columns: 1fr;
+    }
+    & > h4 {
+      font-size: 2rem;
+      color: var(--color-grey-1);
+    }
   }
 }
