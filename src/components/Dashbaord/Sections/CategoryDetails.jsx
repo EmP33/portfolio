@@ -3,9 +3,10 @@ import styles from "./CategoryDetails.module.scss";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 
-import useHttp from "../../../hooks/use-http";
-import { updateCategory } from "../../../lib/api";
 import { RiLoader3Fill } from "react-icons/ri";
+
+import { useDispatch, useSelector } from "react-redux";
+import { editCategory } from "../../../store/categories-slice";
 
 import DeleteCategory from "../../Modals/DeleteCategory/DeleteCategory";
 import AddElement from "../../Modals/AddElement/AddElement";
@@ -13,10 +14,11 @@ import FormInput from "../../UI/FormInput/FormInput";
 import CheckboxField from "../../UI/CheckboxField/CheckboxField";
 
 const CategoryDetails = ({ category }) => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.categories.isLoading);
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const { sendRequest, status } = useHttp(updateCategory);
 
   const titleRef = useRef();
   const imageRef = useRef();
@@ -28,14 +30,15 @@ const CategoryDetails = ({ category }) => {
     const enteredImage = imageRef.current.value;
     const enteredDescription = descriptionRef.current.value;
 
-    sendRequest({
-      title: enteredTitle,
-      image: enteredImage,
-      description: enteredDescription,
-      elements: category.elements,
-      id: category.id,
-      isHidden: hidden,
-    });
+    dispatch(
+      editCategory(
+        category,
+        enteredTitle,
+        enteredImage,
+        enteredDescription,
+        hidden
+      )
+    );
   };
 
   const changeHiddenHandler = (e) => {
@@ -72,14 +75,14 @@ const CategoryDetails = ({ category }) => {
           />
           <div styleName="form-action">
             <button type="submit">
-              {status === "pending" ? (
+              {isLoading === "pending" ? (
                 <RiLoader3Fill className="spinning" />
               ) : (
                 "Edit"
               )}
             </button>
             <button type="button" onClick={() => setOpenModal(true)}>
-              {status === "pending" ? (
+              {isLoading === "pending" ? (
                 <RiLoader3Fill className="spinning" />
               ) : (
                 "Delete"

@@ -4,16 +4,26 @@ import Resources from "../components/Resources/Resources";
 import LoadingSpinner from "../components/UI/LoadingSpinner";
 
 import useHttp from "../hooks/use-http";
-import { getAllCategories } from "../lib/api";
+
+import { db } from "../firebase";
+import { ref, onValue } from "firebase/database";
+
+import { useDispatch, useSelector } from "react-redux";
+import { categoriesActions } from "../store/categories-slice";
+import { fetchCategories } from "../store/categories-slice";
 
 const ResourcesPage = () => {
-  const { sendRequest, data, status } = useHttp(getAllCategories, true);
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories.categories);
+  const isLoading = useSelector((state) => state.categories.isLoading);
 
   useEffect(() => {
-    sendRequest();
+    dispatch(fetchCategories());
   }, []);
 
-  if (status === "pending") {
+  console.log(isLoading);
+
+  if (isLoading) {
     return (
       <div className="centered">
         <LoadingSpinner />
@@ -21,7 +31,7 @@ const ResourcesPage = () => {
     );
   }
 
-  return <Resources categories={data} />;
+  return <Resources categories={categories} />;
 };
 
 export default ResourcesPage;

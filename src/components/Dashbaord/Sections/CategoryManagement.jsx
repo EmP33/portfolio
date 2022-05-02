@@ -4,17 +4,19 @@ import CSSModules from "react-css-modules";
 
 import AddCategory from "../../Modals/AddCategory/AddCategory";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addCategory } from "../../../store/categories-slice";
 
 import { Link } from "react-router-dom";
 
-const CategoryManagement = ({ onAddCategory }) => {
-  const categories = useSelector((state) => state.dashboard.categories);
+const CategoryManagement = () => {
+  const categories = useSelector((state) => state.categories.categories);
+  const dispatch = useDispatch();
 
   const [openModal, setOpenModal] = useState(false);
 
   const addCategoryHandler = (categoryData) => {
-    onAddCategory(categoryData);
+    dispatch(addCategory(categoryData));
     setOpenModal((prevState) => !prevState);
   };
 

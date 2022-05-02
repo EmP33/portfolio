@@ -4,24 +4,26 @@ import classes from "./DeleteCategory.module.scss";
 import { useParams, useNavigate } from "react-router-dom";
 
 import Modal from "@mui/material/Modal";
-
-import useHttp from "../../../hooks/use-http";
-import { deleteCategory } from "../../../lib/api";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteCategory } from "../../../store/categories-slice";
 
 const DeleteCategory = ({ openModal, setOpenModal }) => {
+  const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
-  const { sendRequest, status } = useHttp(deleteCategory);
+  const isLoading = useSelector((state) => state.categories.isLoading);
 
   const deleteCategoryHandler = () => {
-    sendRequest(params.categoryID);
+    dispatch(deleteCategory(params.categoryID));
   };
 
+  console.log(isLoading);
+
   useEffect(() => {
-    if (status === "completed") {
+    if (isLoading) {
       navigate("/dashboard/categories", { replace: true });
     }
-  }, [status, navigate]);
+  }, [isLoading, navigate]);
 
   return (
     <Modal

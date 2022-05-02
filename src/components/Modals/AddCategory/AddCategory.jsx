@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import classes from "./AddCategory.module.scss";
 
 import Modal from "@mui/material/Modal";
+import { v4 as uuidv4 } from "uuid";
 
 const AddCategory = ({ openModal, setOpenModal, onAddCategory }) => {
   const titleRef = useRef();
@@ -15,6 +16,7 @@ const AddCategory = ({ openModal, setOpenModal, onAddCategory }) => {
     const enteredDescription = descriptionRef.current.value;
 
     onAddCategory({
+      id: uuidv4(),
       title: enteredTitle,
       image: enteredImage,
       description: enteredDescription,

@@ -1,20 +1,30 @@
+import { db } from "../firebase";
+import { ref, onValue } from "firebase/database";
+
 const FIREBASE_DOMAIN = process.env.REACT_APP_FIREBASE_URL;
 
 export const getAllCategories = async () => {
-  const response = await fetch(`${FIREBASE_DOMAIN}/categories.json`);
-  const data = await response.json();
+  const categoriesRef = ref(db, "categories");
   const loadedCategories = [];
-  for (let key in data) {
-    loadedCategories.push({
-      id: key,
-      title: data[key].title,
-      image: data[key].image,
-      description: data[key].description,
-      elements: data[key].elements,
-      isHidden: data[key].isHidden,
-    });
+  onValue(categoriesRef, (snapshot) => {
+    const data = snapshot.val();
+    for (let key in data) {
+      loadedCategories.push({
+        id: key,
+        title: data[key].title,
+        image: data[key].image,
+        description: data[key].description,
+        elements: data[key].elements,
+        isHidden: data[key].isHidden,
+      });
+    }
+  });
+  console.log(loadedCategories);
+  if (loadedCategories) {
+    return loadedCategories;
   }
-  return loadedCategories;
+  // const response = await fetch(`${FIREBASE_DOMAIN}/categories.json`);
+  // const data = await response.json();
 };
 export const addCategory = async (categoryData) => {
   await fetch(`${FIREBASE_DOMAIN}/categories.json`, {
